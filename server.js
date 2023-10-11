@@ -6,10 +6,13 @@ const Register = require("./models/Schema");
 const app = express();
 
 //mongoDB connection
-mongoose.connect("mongodb+srv://Register:Saru2002@nodejs.4hovdfe.mongodb.net/HEllo", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://Register:Saru2002@nodejs.4hovdfe.mongodb.net/HEllo",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 //styling css path
 app.use(express.static(path.join(__dirname, "public")));
@@ -18,12 +21,15 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
 //path of html file
-app.get("/", (req, res) => {
+app.get("/register", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
-//data post 
-app.post("/", async (req, res) => {
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "views", "home_page.html"));
+});
+//data post
+app.post("/register", async (req, res) => {
   try {
     const newRegister = new Register({
       Fname: req.body.Fname,
@@ -36,14 +42,14 @@ app.post("/", async (req, res) => {
       Address: req.body.Address,
       Postal: req.body.Postal,
     });
-
+    console.log(newRegister);
     await newRegister.save();
-
+    return res.redirect("/");
   } catch (error) {
     console.error(error);
   }
 });
 
 app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+  console.log("Server is running on port 3000");
 });
