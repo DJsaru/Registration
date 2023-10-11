@@ -38,6 +38,7 @@ app.post("/", async (req, res) => {
     });
 
     await newRegister.save();
+    return res.redirect("/");
 
   } catch (error) {
     console.error(error);
