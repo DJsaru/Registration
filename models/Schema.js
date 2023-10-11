@@ -13,10 +13,6 @@ const RegisterSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  ComPass: {
-    type: String,
-    required: true
-  },
   Gender: {
     type: String,
     enum: ['male', 'female'],
